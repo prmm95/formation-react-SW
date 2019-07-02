@@ -17,12 +17,17 @@ class App extends Component {
   }
 
   handleClick(element) {
-    const newArray = this.state.tasks.filter(filterElement => filterElement !== element);
-    const newArrayWithElement = newArray.concat([{ ...element, done: !element.done }]);
+    const newArray = this.state.tasks.map(mapElement => {
+      if (mapElement === element) {
+        const newElement = { ...element, done: !element.done };
+        return newElement;
+      }
+      return mapElement;
+    });
 
     return e => {
       this.setState({
-        tasks: newArrayWithElement
+        tasks: newArray
       });
     };
   }
