@@ -1,32 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import ListElement from './ListElement';
 
 const tasks = [
-        {name: "Learn React", done: false},
-        {name: "Learn CSS", done: true},
-        {name: "Web development", done: true}
-    ];
+  { name: 'Learn React', done: false },
+  { name: 'Learn CSS', done: true },
+  { name: 'Web development', done: true }
+];
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { tasks };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(element) {
+    const newArray = this.state.tasks.filter(filterElement => filterElement !== element);
+    const newArrayWithElement = newArray.concat([{ ...element, done: !element.done }]);
+
+    return e => {
+      this.setState({
+        tasks: newArrayWithElement
+      });
+    };
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          {this.state.tasks.map((element, index) => (
+            <ListElement element={element} key={index} handleClick={this.handleClick(element)} />
+          ))}
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
