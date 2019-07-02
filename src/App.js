@@ -32,13 +32,22 @@ class App extends Component {
     };
   }
 
+  // handleSubmit(element) {}
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          {this.state.tasks.map((element, index) => (
-            <ListElement element={element} key={index} handleClick={this.handleClick(element)} />
-          ))}
+          <div>
+            {this.state.tasks.map((element, index) => (
+              <ListElement element={element} key={index} handleClick={this.handleClick(element)} />
+            ))}
+            <form>
+              <label>New task </label>
+              <input type="text" on />
+              <input type="submit" onClick={this.handleSubmit} />
+            </form>
+          </div>
         </header>
       </div>
     );
