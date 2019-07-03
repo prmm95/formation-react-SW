@@ -18,16 +18,8 @@ class App extends Component {
   }
 
   handleClick(element) {
-    const newArray = this.props.tasks.map(mapElement => {
-      if (mapElement === element) {
-        const newElement = { ...element, done: !element.done };
-        return newElement;
-      }
-      return mapElement;
-    });
-
     return e => {
-      this.props.changeListStatus(newArray);
+      this.props.changeListStatus(element);
     };
   }
 
