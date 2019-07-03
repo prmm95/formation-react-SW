@@ -12,12 +12,13 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { tasks };
+    this.props.initTodoList(tasks);
+
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(element) {
-    const newArray = this.state.tasks.map(mapElement => {
+    const newArray = this.props.tasks.map(mapElement => {
       if (mapElement === element) {
         const newElement = { ...element, done: !element.done };
         return newElement;
@@ -26,20 +27,16 @@ class App extends Component {
     });
 
     return e => {
-      this.setState({
-        tasks: newArray
-      });
+      this.props.changeListStatus(newArray);
     };
   }
-
-  // handleSubmit(element) {}
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <div>
-            {this.state.tasks.map((element, index) => (
+            {this.props.tasks.map((element, index) => (
               <ListElement element={element} key={index} handleClick={this.handleClick(element)} />
             ))}
             <form>
